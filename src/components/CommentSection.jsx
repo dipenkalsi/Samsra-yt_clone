@@ -2,28 +2,26 @@ import { onSnapshot, orderBy, query ,collection} from 'firebase/firestore'
 import React from 'react'
 import {db} from '../firebase'
 import { useEffect } from 'react'
-import { useState } from 'react'
+import { useState } from 'react';
+import { fetchDataFromAPI } from '../utils/api';
 import CommentCard from './CommentCard'
-const CommentSection = ({user}) => {
-    console.log(user)
+const CommentSection = ({user , id}) => {
     const [comments,setComments] = useState([])
     const [visibility,setVisibility]=useState(false)
     const handleVisibility=()=>{
       setVisibility(!visibility)
     }
     const styles = !visibility?"hidden":"flex"
-    useEffect(() => {
-      const q = query(collection(db, 'comments'), orderBy('timestamp'));
-      const unsubscribe = onSnapshot(q, (querySnapshot) => {
-        let messages = [];
-        querySnapshot.forEach((doc) => {
-          messages.push({ ...doc.data(), id: doc.id });
-        });
-        setComments(messages);
-        console.log(comments)
+    const fetchVideoComments = () => {
+      fetchDataFromAPI(`video/comments/?id=${id}`).then((res) => {
+          
+          setComments(res.data.comments);
+          console.log(comments);
       });
-      return () => unsubscribe();
-    }, []);
+  };
+  useEffect(()=>{
+    fetchVideoComments();
+  },[id])
   return (
     <div className='text-white pt-5 pb-2'>
       <h1 className='text-xl'> 130 Comments</h1>
@@ -41,11 +39,15 @@ const CommentSection = ({user}) => {
       </div>
       <p className='my-3 font-semibold cursor-pointer hover:text-indigo-300 transition-all ease-in duration-150 hover:bg-white/[0.15] px-3 py-2 w-fit' onClick={handleVisibility}>{visibility?"Hide Comments":"Show Comments"}</p>
   
-      {comments && comments.map(comment =>(
-        <div>
-          <CommentCard user={user} ke={comment.id} styles={styles} value={comment.text} timestamp={comment.timestamp.seconds}/>
+      {comments?.length && comments.map(comment =>(
+        <div key={comment.commentId}>
+          <CommentCard styles={styles} avatar={comment.author.avatar[2].url} body={comment.content} title={comment.author.title} likes = {comment.stats.votes} replies ={comment.stats.replies}/>
         </div>
       ))}
+      {comments.length == 0 && 
+      <div className='text-center py-5 text-gray-500 text-2xl'>
+        Comments have been turned off.
+        </div>}
     </div>
   )
 }

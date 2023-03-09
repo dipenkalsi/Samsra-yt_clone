@@ -8,12 +8,14 @@ import { RiVideoAddLine } from "react-icons/ri";
 import { FiBell } from "react-icons/fi";
 import { CgClose } from "react-icons/cg";
 import { BiArrowBack } from "react-icons/bi"
+import Drawer from 'react-modern-drawer'
+import 'react-modern-drawer/dist/index.css'
 
 import { Context } from "../context/contextApi";
 import Loader from "../shared/loader";
 
 const Header = ({user , signOut}) => {
-
+    const [showModal , setShowModal] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
 
     const { loading, mobileMenu, setMobileMenu } = useContext(Context);
@@ -22,6 +24,10 @@ const Header = ({user , signOut}) => {
 
     const handleBackClick=()=>{
         navigate(-1)
+    }
+
+    const toggleDrawer = () => {
+        setShowModal((prevState) => !prevState)
     }
 
     const searchQueryHandler = (event) => {
@@ -41,8 +47,23 @@ const Header = ({user , signOut}) => {
     const pageName = pathname?.split("/")?.filter(Boolean)?.[0];
 
     return (
+        <>
+         <Drawer
+                open={showModal}
+                onClose={toggleDrawer}
+                direction='right'
+                size={300}
+                duration={150}
+            >
+                <div className="bg-gray-900 min-h-screen">
+                    <h1 className="text-gray-100 text-2xl text-center py-3">Notifications</h1>
+
+                </div>
+            </Drawer>
         <div className="sticky top-0 z-10 flex flex-row items-center justify-between h-14 px-4 md:px-5 bg-[#1a0000]">
             {loading && <Loader />}
+
+           
 
             <div className="flex h-5 items-center">
                 {pageName !== "video" ? (
@@ -95,7 +116,7 @@ const Header = ({user , signOut}) => {
                     <div className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-[#303030]/[1] transition-all ease-in duration-150">
                         <RiVideoAddLine className="text-white text-xl cursor-pointer" />
                     </div>
-                    <div className="flex items-center justify-center ml-2 h-10 w-10 rounded-full hover:bg-[#303030]/[1] transition-all ease-in duration-150">
+                    <div className="flex items-center justify-center ml-2 h-10 w-10 rounded-full hover:bg-[#303030]/[1] transition-all ease-in duration-150" onClick={toggleDrawer}>
                         <FiBell className="text-white text-xl cursor-pointer" />
                     </div>
                 </div>
@@ -106,6 +127,7 @@ const Header = ({user , signOut}) => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

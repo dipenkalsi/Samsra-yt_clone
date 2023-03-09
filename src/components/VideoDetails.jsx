@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import ReactPlayer from "react-player/youtube";
 import { BsFillCheckCircleFill } from "react-icons/bs";
-import { AiOutlineLike ,AiOutlineDislike } from "react-icons/ai";
+import { AiOutlineLike ,AiOutlineDislike , AiFillLike, AiFillDislike} from "react-icons/ai";
 import { FiMoreHorizontal} from "react-icons/fi";
 import { abbreviateNumber } from "js-abbreviation-number";
 import { BiShare } from "react-icons/bi"
@@ -15,6 +15,8 @@ import { GiConsoleController } from "react-icons/gi";
 
 const VideoDetails = ({user}) => {
     const [video, setVideo] = useState();
+    const [isLiked , setIsLiked] = useState(false);
+    const [isDisliked , setIsDisliked] = useState(false);
     const [descClass, setDescClass] = useState("truncate");
     const [relatedVideos, setRelatedVideos] = useState();
     const { id } = useParams();
@@ -26,10 +28,19 @@ const VideoDetails = ({user}) => {
         fetchRelatedVideos();
     }, [id]);
 
+    const handleLikeClick=()=>{
+        setIsLiked(!isLiked)
+        if(!isLiked) setIsDisliked(false)
+    }
+    const handleDislikeClick=()=>{
+        setIsDisliked(!isDisliked)
+        if(!isDisliked) setIsLiked(false)
+    }
+
     const fetchVideoDetails = () => {
         setLoading(true);
         fetchDataFromAPI(`video/details/?id=${id}`).then((res) => {
-            // console.log(res);
+            
             setVideo(res.data);
             setLoading(false);
         });
@@ -57,7 +68,7 @@ const VideoDetails = ({user}) => {
     const handleDescClick = () => {
         if(descClass==="truncate"){
             setDescClass("");
-            // console.log("suiiiiii")
+            
         }
         else{
             setDescClass("truncate")
@@ -66,7 +77,7 @@ const VideoDetails = ({user}) => {
     const fetchRelatedVideos = () => {
         setLoading(true);
         fetchDataFromAPI(`video/related-contents/?id=${id}`).then((res) => {
-            // console.log(res);
+           
             setRelatedVideos(res.data);
             setLoading(false);
         });
@@ -120,15 +131,15 @@ const VideoDetails = ({user}) => {
                         </div>
                         <div className="flex text-white mt-4 md:mt-0">
                            
-                            <div className="flex items-center justify-center h-11 rounded-l-full px-2 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 pr-4">
-                                <AiOutlineLike className="text-xl text-white mr-2" />
+                            <div className="flex items-center justify-center h-11 rounded-l-full px-2 pl-4 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 pr-4" onClick={handleLikeClick}>
+                                {isLiked?<AiFillLike className="text-xl text-white mr-2"/> :<AiOutlineLike className="text-xl text-white mr-2" />}
                                 {`${abbreviateNumber(
-                                    video?.stats?.likes,
+                                    isLiked? video?.stats?.likes +1 :video?.stats?.likes,
                                     2
                                 )}`}
                             </div>
-                            <div className="flex items-center justify-center h-11 px-2 rounded-r-full bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 border-l border-white/[0.3]">
-                                <AiOutlineDislike className="text-xl text-white mx-2" />
+                            <div className="flex items-center justify-center h-11 px-2 rounded-r-full bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 border-l border-white/[0.3]" onClick={handleDislikeClick}>
+                                {isDisliked?<AiFillDislike className="text-xl text-white mx-2"/>:<AiOutlineDislike className="text-xl text-white mx-2" />}
                             </div>
                             
                          
@@ -151,7 +162,7 @@ const VideoDetails = ({user}) => {
                            <p className={`font-light ${descClass} text-sm`}>{desc}</p> 
                            <p className={`text-white  hover:text-indigo-400 cursor-pointer transition-all ease-in duration-150 w-fit`} onClick={handleDescClick}>{descClass===""?"Show Less":"Show More"}</p> 
                             </div>
-                            <CommentSection user={user}/>
+                            <CommentSection user={user} id={video?.videoId}/>
                 </div>
                 <div className="flex flex-col py-6 px-4 overflow-y-auto lg:w-[350px] xl:w-[400px]">
                     {relatedVideos?.contents?.map((item, index) => {

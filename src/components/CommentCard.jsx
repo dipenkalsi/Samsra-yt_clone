@@ -1,23 +1,24 @@
 import React from 'react'
 import { AiOutlineLike ,AiOutlineDislike } from "react-icons/ai";
+import { abbreviateNumber } from 'js-abbreviation-number';
 
-const CommentCard = ({user,styles}) => {
+const CommentCard = ({avatar,title,styles,body ,likes, replies}) => {
   return (
     <div className={`flex space-x-3 mt-5 ${styles}`}>
-      <img src={user.photoURL} alt="" className='h-10 w-10 rounded-full'/>
+      <img src={avatar||"https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-photo-183042379.jpg"} alt="" className='h-10 w-10 rounded-full'/>
       <div className='flex flex-col'>
         <div className='flex space-x-1 items-center'>
-        <p className='font-semibold'>{user.displayName}</p>
+        <p className='font-semibold'>{title}</p>
         <span className="flex text-[24px] leading-none font-bold text-white/[0.7] relative top-[-7px] mx-1">
-                            .
-                        </span>
+            .
+        </span>
         <p className='text-white/[0.7] font-thin text-sm'>7 Months ago</p>
         </div>
-        <p className='font-thin text-white/[0.9]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae est voluptas architecto ad exercitationem, ducimus rerum neque voluptate veritatis id? Natus veritatis assumenda optio adipisci, odit deserunt est ullam nihil doloremque voluptas neque fugiat similique, libero aperiam fuga totam. Architecto fugiat aperiam, quod natus recusandae quos tempore unde consectetur hic?</p>
+        <p className='text-white/[0.9] text-sm'>{body}</p>
         <div className='flex space-x-4 mt-2'>
           <div className='flex space-x-1 justify-center items-center'>
             <AiOutlineLike className='cursor-pointer'/>
-            <p>34</p>
+            <p>{abbreviateNumber(likes)}</p>
           </div>
           <div className='flex space-x-1 justify-center items-center'>
             <AiOutlineDislike className='cursor-pointer'/>

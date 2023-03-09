@@ -17,6 +17,7 @@
     "react-google-button": "^0.7.2",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.7.1",
+    "react-modern-drawer": "^1.2.0",
     "react-player": "^2.11.0",
     "react-router-dom": "^6.5.0",
     "react-scripts": "5.0.1",

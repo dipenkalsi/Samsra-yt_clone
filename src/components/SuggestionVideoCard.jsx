@@ -18,7 +18,7 @@ const SuggestionVideoCard = ({ video }) => {
                         <VideoLength time={video?.lengthSeconds} />
                     )}
                 </div>
-                <div className="flex flex-col ml-3 overflow-hidden">
+                <div className="flex flex-col ml-3 overflow-hidden py-2 rounded">
                     <span className="text-sm lg:text-xs xl:text-sm font-bold line-clamp-2 text-white truncate">
                         {video?.title}
                     </span>

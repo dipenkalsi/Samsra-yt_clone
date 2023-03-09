@@ -13,6 +13,7 @@ import 'react-modern-drawer/dist/index.css'
 
 import { Context } from "../context/contextApi";
 import Loader from "../shared/loader";
+import NotificationCard from "./NotificationCard";
 
 const Header = ({user , signOut}) => {
     const [showModal , setShowModal] = useState(false);
@@ -52,18 +53,21 @@ const Header = ({user , signOut}) => {
                 open={showModal}
                 onClose={toggleDrawer}
                 direction='right'
-                size={300}
+                size={350}
                 duration={150}
             >
-                <div className="bg-gray-900 min-h-screen">
-                    <h1 className="text-gray-100 text-2xl text-center py-3">Notifications</h1>
-
+                <div className="bg-[#1a0000] min-h-screen">
+                    <h1 className=" text-2xl text-center text-indigo-200 py-3">Notifications</h1>
+                    <NotificationCard title="Markiplier uploaded - Lates.." timestamp="11 hours ago" avatar='https://i.pinimg.com/originals/81/65/5f/81655f35bc9dcf038cc1d24b1edd2f5c.png' />
+                    <NotificationCard title="Vsauce is live!" timestamp="16 hours ago" avatar='https://yt3.googleusercontent.com/ytc/AL5GRJWvTe2XC80z6_cZh5GZoYhRWaONosagXi6OnhiZGA=s900-c-k-c0x00ffffff-no-rj' />
+                    <NotificationCard title="Kurzgesagt uploaded - The..." timestamp="1 day ago" avatar='https://yt3.googleusercontent.com/ytc/AL5GRJWjS7at2j0n5yn5dsfYFe5x_V8QeN66ppWjzChpoQ=s900-c-k-c0x00ffffff-no-rj' />
+                    <NotificationCard title="Pewdiepie uploaded - Mem..." timestamp="2 days ago" avatar='https://i.pinimg.com/originals/4f/5a/4b/4f5a4bee6a664f02f19566538e8289fd.png' />
+                    <NotificationCard title="Mr.Beast is live!" timestamp="2 days ago" avatar='https://yt3.googleusercontent.com/ytc/AL5GRJUfhQdJS6n-YJtsAf-ouS2myDavDOq_zXBfebal3Q=s900-c-k-c0x00ffffff-no-rj' />
+                    <NotificationCard title="PSG is live!" timestamp="2 days ago" avatar='https://upload.wikimedia.org/wikipedia/en/thumb/a/a7/Paris_Saint-Germain_F.C..svg/1200px-Paris_Saint-Germain_F.C..svg.png' />
                 </div>
             </Drawer>
         <div className="sticky top-0 z-10 flex flex-row items-center justify-between h-14 px-4 md:px-5 bg-[#1a0000]">
             {loading && <Loader />}
-
-           
 
             <div className="flex h-5 items-center">
                 {pageName !== "video" ? (

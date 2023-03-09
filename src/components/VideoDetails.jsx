@@ -10,6 +10,7 @@ import { fetchDataFromAPI } from "../utils/api";
 import { Context } from "../context/contextApi";
 import SuggestionVideoCard from "./SuggestionVideoCard";
 import CommentSection from "./CommentSection";
+import {toast , Toaster} from 'react-hot-toast';
 import { GiConsoleController } from "react-icons/gi";
 
 const VideoDetails = ({user}) => {
@@ -28,15 +29,35 @@ const VideoDetails = ({user}) => {
     const fetchVideoDetails = () => {
         setLoading(true);
         fetchDataFromAPI(`video/details/?id=${id}`).then((res) => {
-            console.log(res);
+            // console.log(res);
             setVideo(res.data);
             setLoading(false);
         });
     };
+    const handleShareClick = async()=>{
+        toast('Link copied to Clipboard!',
+            {
+                icon: '😄',
+                style: {
+                borderRadius: '5px',
+                background: '#29a329',
+                color: '#fff',
+                },
+            }
+        );
+        let text = `https://www.youtube.com/watch?v=${video.videoId}`
+            try {
+            await navigator.clipboard.writeText(text);
+            console.log('Content copied to clipboard');
+            } catch (err) {
+            console.error('Failed to copy: ', err);
+            }
+      
+    }
     const handleDescClick = () => {
         if(descClass==="truncate"){
             setDescClass("");
-            console.log("suiiiiii")
+            // console.log("suiiiiii")
         }
         else{
             setDescClass("truncate")
@@ -45,15 +66,20 @@ const VideoDetails = ({user}) => {
     const fetchRelatedVideos = () => {
         setLoading(true);
         fetchDataFromAPI(`video/related-contents/?id=${id}`).then((res) => {
-            console.log(res);
+            // console.log(res);
             setRelatedVideos(res.data);
             setLoading(false);
         });
     };
+    console.log(video)
     const publishedDate =video?.publishedDate
     const desc =video?.description
     return (
         <div className="flex justify-center flex-row h-[calc(100%-56px)] bg-black">
+            <Toaster
+            position="top-center"
+            reverseOrder={false}
+            />
             <div className="w-full max-w-[1280px] flex flex-col lg:flex-row">
                 <div className="flex flex-col lg:w-[calc(100%-350px)] xl:w-[calc(100%-400px)] px-4 py-3 lg:py-6 overflow-y-auto">
                     <div className="min-h-[250px] md:min-h-[400px] lg:min-h-[400px] xl:min-h-[450px] ml-[-16px] lg:ml-0 mr-[-16px] lg:mr-0">
@@ -106,7 +132,7 @@ const VideoDetails = ({user}) => {
                             </div>
                             
                          
-                            <div className="flex items-center justify-center h-11 px-6 bg-white/[0.15] ml-4 cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150">
+                            <div className="flex items-center justify-center h-11 px-6 bg-white/[0.15] ml-4 cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150" onClick={handleShareClick}>
                             <BiShare className="text-xl text-white mr-2" />
                                 Share
                             </div>
@@ -122,7 +148,7 @@ const VideoDetails = ({user}) => {
                                 )} Views`} <span className=" text-[34px] leading-none font-bold text-white/[0.7] relative top-[-3px] mx-1 inline">
                                 .
                             </span> Published at - {publishedDate}</p>
-                           <p className={`font-light ${descClass}`}>{desc}</p> 
+                           <p className={`font-light ${descClass} text-sm`}>{desc}</p> 
                            <p className={`text-white  hover:text-indigo-400 cursor-pointer transition-all ease-in duration-150 w-fit`} onClick={handleDescClick}>{descClass===""?"Show Less":"Show More"}</p> 
                             </div>
                             <CommentSection user={user}/>

@@ -11,8 +11,6 @@ export const AppContext = (props) => {
 
     useEffect(() => {
         // fetchSelectedCategoryData(selectedCategory);
-        console.log("heyyy broooo")
-        console.log(testObject);
         setSearchResults(testObject);
     }, [selectedCategory]);
 

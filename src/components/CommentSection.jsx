@@ -40,10 +40,7 @@ const CommentSection = ({user}) => {
                             </div>
       </div>
       <p className='my-3 font-semibold cursor-pointer hover:text-indigo-300 transition-all ease-in duration-150 hover:bg-white/[0.15] px-3 py-2 w-fit' onClick={handleVisibility}>{visibility?"Hide Comments":"Show Comments"}</p>
-      {/* <CommentCard user={user} styles={styles}/>
-      <CommentCard user={user} styles={styles}/>
-      <CommentCard user={user} styles={styles}/>
-      <CommentCard user={user} styles={styles}/> */}
+  
       {comments && comments.map(comment =>(
         <div>
           <CommentCard user={user} ke={comment.id} styles={styles} value={comment.text} timestamp={comment.timestamp.seconds}/>

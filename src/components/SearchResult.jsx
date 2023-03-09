@@ -14,7 +14,6 @@ const SearchResult = () => {
     useEffect(() => {
         document.getElementById("root").classList.remove("custom-h");
         // fetchSearchResults();
-        console.log(object);
             setResult(object?.data.contents);
             setLoading(false);
     }, [searchQuery]);

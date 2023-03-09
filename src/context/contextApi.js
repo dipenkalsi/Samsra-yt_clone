@@ -10,8 +10,8 @@ export const AppContext = (props) => {
     const [mobileMenu, setMobileMenu] = useState(false);
 
     useEffect(() => {
-        // fetchSelectedCategoryData(selectedCategory);
-        setSearchResults(testObject);
+        fetchSelectedCategoryData(selectedCategory);
+        // setSearchResults(testObject);
     }, [selectedCategory]);
 
     const fetchSelectedCategoryData = (query) => {

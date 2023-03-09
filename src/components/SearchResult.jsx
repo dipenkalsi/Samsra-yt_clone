@@ -13,8 +13,8 @@ const SearchResult = () => {
 
     useEffect(() => {
         document.getElementById("root").classList.remove("custom-h");
-        // fetchSearchResults();
-            setResult(object?.data.contents);
+        fetchSearchResults();
+            // setResult(object?.data.contents);
             setLoading(false);
     }, [searchQuery]);
 

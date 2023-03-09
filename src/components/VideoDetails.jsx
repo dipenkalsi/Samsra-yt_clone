@@ -120,23 +120,23 @@ const VideoDetails = ({user}) => {
                         </div>
                         <div className="flex text-white mt-4 md:mt-0">
                            
-                            <div className="flex items-center justify-center h-11 px-2 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 pr-4">
+                            <div className="flex items-center justify-center h-11 rounded-l-full px-2 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 pr-4">
                                 <AiOutlineLike className="text-xl text-white mr-2" />
                                 {`${abbreviateNumber(
                                     video?.stats?.likes,
                                     2
                                 )}`}
                             </div>
-                            <div className="flex items-center justify-center h-11 px-2 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 border-l border-white/[0.3]">
+                            <div className="flex items-center justify-center h-11 px-2 rounded-r-full bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 border-l border-white/[0.3]">
                                 <AiOutlineDislike className="text-xl text-white mx-2" />
                             </div>
                             
                          
-                            <div className="flex items-center justify-center h-11 px-6 bg-white/[0.15] ml-4 cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150" onClick={handleShareClick}>
+                            <div className="flex items-center justify-center h-11 px-6 bg-white/[0.15] ml-4 rounded-full cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150" onClick={handleShareClick}>
                             <BiShare className="text-xl text-white mr-2" />
                                 Share
                             </div>
-                            <div className="flex items-center justify-center h-11 px-3 bg-white/[0.15] ml-4 cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150">
+                            <div className="flex items-center justify-center h-11 px-3 rounded-full bg-white/[0.15] ml-4 cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150">
                             <FiMoreHorizontal className="text-xl text-white " />
                             </div>
                         </div>

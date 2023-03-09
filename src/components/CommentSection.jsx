@@ -32,12 +32,12 @@ const CommentSection = ({user}) => {
         <input type="text" placeholder='Add a comment' className='w-full bg-transparent border-b  border-white/[0.25] focus:ring-transparent focus:outline-none focus:border-white'/>
       </div>
       <div className='flex space-x-4 justify-end itmes-center mt-4'>
-      <div className="flex items-center justify-center font-semibold text-black h-11 px-4 bg-white/[0.8] cursor-pointer hover:bg-white hover:transition-all ease-in duration-150 ">
-                                Comment
-                            </div>
-      <div className="flex items-center justify-center h-11 font-semibold px-4 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 ">
-                                Cancel
-                            </div>
+      <div className="flex items-center justify-center font-semibold rounded-full text-black h-11 px-4 bg-white/[0.8] cursor-pointer hover:bg-white hover:transition-all ease-in duration-150 ">
+          Comment
+      </div>
+      <div className="flex items-center justify-center rounded-full h-11 font-semibold px-4 bg-white/[0.15] cursor-pointer hover:bg-white/[0.25] hover:transition-all ease-in duration-150 ">
+          Cancel
+      </div>
       </div>
       <p className='my-3 font-semibold cursor-pointer hover:text-indigo-300 transition-all ease-in duration-150 hover:bg-white/[0.15] px-3 py-2 w-fit' onClick={handleVisibility}>{visibility?"Hide Comments":"Show Comments"}</p>
   

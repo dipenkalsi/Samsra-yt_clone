@@ -8,7 +8,7 @@ import VideoLength from "../shared/videoLength";
 const VideoCard = ({ video }) => {
     return (
         <Link to={`/video/${video?.videoId}`}>
-            <div className="flex flex-col mb-2 hover:bg-white/[0.15] transition-all ease-in duration-150 rounded-br-xl rounded-tl-xl">
+            <div className="flex flex-col mb-2 hover:bg-white/[0.15] transition-all ease-in duration-150 rounded-b-xl rounded-tl-xl">
                 <div className="relative h-48 md:h-40  overflow-hidden">
                     <img
                         className="h-full w-full object-cover transition-all ease-in duration-150"
